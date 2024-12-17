@@ -1,48 +1,51 @@
-package com.example.savenote
+package com.example.savenote.presentation.home
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.savenote.presentation.addnote.AddNotePageScreen
-import com.example.savenote.presentation.addnote.AddNotePageScreen
-import com.example.savenote.presentation.home.HomePageScreen
+import com.example.savenote.R
+import com.example.savenote.presentation.home.components.BotAppBarHome
+import com.example.savenote.presentation.home.components.NoteList
+import com.example.savenote.presentation.home.components.TopAppBarHome
 import com.example.savenote.ui.theme.SaveNoteTheme
 import com.example.savenote.util.DummyNoteModel
 
-class MainActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContent {
-            SaveNoteTheme {
-
-            }
-        }
-    }
-}
-
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
+fun HomePageScreen(
+    modifier: Modifier = Modifier,
+    notes: List<DummyNoteModel>,
+    onNoteClick: (DummyNoteModel) -> Unit,
+) {
+    Scaffold(
+        modifier = modifier.fillMaxSize(),
+        topBar = {
+            TopAppBarHome(
+                onSortClick = { /*TODO*/ }
+            )
+        },
+        bottomBar = {
+            BotAppBarHome(
+                onItemClick = { /*TODO*/ }
+            )
+        }
+    ){
+        NoteList(
+            modifier = modifier.padding(it),
+            notes = notes,
+            onNoteClick = onNoteClick,
+        )
+    }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun HomePagePreview() {
+private fun HomePageScreenPrev() {
     SaveNoteTheme {
         HomePageScreen(
-            modifier = Modifier.fillMaxSize(),
+            modifier = TODO(),
             notes = listOf(
                 DummyNoteModel(
                     title = "Title",
@@ -60,17 +63,7 @@ fun HomePagePreview() {
                     thumbnail = R.drawable.image_thumbnaiil
                 ),
             ),
-            onNoteClick = { }
-        )
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun AddNotePreview() {
-    SaveNoteTheme {
-        AddNotePageScreen(
-            onNavigateBack = { }
+            onNoteClick = { TODO() }
         )
     }
 }
